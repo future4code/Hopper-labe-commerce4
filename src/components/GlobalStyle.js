@@ -5,9 +5,8 @@ const GlobalStyle = createGlobalStyle`
     background-color: #444;
     color: #fff;
     border-radius: 5px;
-    padding: 20px;
-    font-size: 150%;
-
+    padding: 10px;
+    font-size: 100%;
   }
 
   .filtro {
@@ -21,6 +20,9 @@ const GlobalStyle = createGlobalStyle`
   .card {
     grid-column: 1 / 3;
     grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 `
 

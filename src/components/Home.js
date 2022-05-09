@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Card } from './Card.js'
+import { Cards } from './Cards.js'
 import { Carrinho } from './Carrinho.js'
 import { Filtro } from './Filtro.js'
 
@@ -15,16 +15,37 @@ const Container = styled.main`
 `
 
 export class Home extends React.Component{
+    state = {
+        listaDeCompras: [
+            {
+                nome: "Urano",
+                preco: "R$ 160,00"
+            }
+        ]
+    }
+
+    addItem = (nomeProduto, precoProduto) => {
+        const novoItem = {
+            nome: nomeProduto,
+            preco: precoProduto
+        }
+
+        const novaLista = [...this.state.listaDeCompras, novoItem]
+        
+        this.setState({listaDeCompras: novaLista})
+    }
+    
     render(){
+        console.log(this.state.listaDeCompras)
         return(
             <Container>
                 <Filtro/>
                 <Carrinho/>
-                <Card/>
-                {/* <div class="box filtro">A</div>
-                <div class="box carrinho">B</div>
-                <div class="box card">C</div> */}
+                <Cards
+                    addItem={this.addItem}
+                />
             </Container>
         )
+    
     }
 }
