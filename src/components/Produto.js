@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const Card = styled.div`
     display: flex;
+    flex-wrap: wrap;
     background-color: white;
     color: black;
     width: 100%;
@@ -24,7 +25,7 @@ export class Produto extends React.Component{
                     src={this.props.imagem}
                 />
                 <p>{this.props.nome}</p>
-                <p>{this.props.preco}</p>
+                <p>R${this.props.preco},00</p>
                 <button onClick={() => this.props.addItem(this.props.nome,this.props.preco)}>Adicionar ao Carrinho</button>
             </Card>
         )

@@ -4,6 +4,8 @@ import { Cards } from './Cards.js'
 import { Carrinho } from './Carrinho.js'
 import { Filtro } from './Filtro.js'
 
+const arrayCarrinho = []
+
 const Container = styled.main`
     display: grid;
     width: calc(100% - 20px);
@@ -16,12 +18,8 @@ const Container = styled.main`
 
 export class Home extends React.Component{
     state = {
-        listaDeCompras: [
-            {
-                nome: "Urano",
-                preco: "R$ 160,00"
-            }
-        ]
+        listaDeCompras: arrayCarrinho,
+        soma: 0
     }
 
     addItem = (nomeProduto, precoProduto) => {
@@ -33,14 +31,22 @@ export class Home extends React.Component{
         const novaLista = [...this.state.listaDeCompras, novoItem]
         
         this.setState({listaDeCompras: novaLista})
+        this.setState({soma: this.state.soma + precoProduto})
     }
     
     render(){
-        console.log(this.state.listaDeCompras)
+        const componentesCarrinho = this.state.listaDeCompras.map((c,index,array)=>{
+            return(
+                <Carrinho
+                    lista={array}
+                    soma={this.state.soma}
+                />
+            )
+        }) 
         return(
             <Container>
                 <Filtro/>
-                <Carrinho/>
+                {componentesCarrinho}
                 <Cards
                     addItem={this.addItem}
                 />
