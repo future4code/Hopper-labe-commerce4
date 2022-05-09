@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import GlobalStyle from './components/GlobalStyle.js';
 
 const Container = styled.div`
-  width: 100vw;
+  width: calc(100vw - 15px);
 `
 
 class App extends React.Component {

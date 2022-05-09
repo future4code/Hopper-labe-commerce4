@@ -12,7 +12,7 @@ export class HomeHeader extends React.Component{
     render(){
         return(
             <Header>
-                <p>Home Header</p>
+                <p>Header</p>
             </Header>
         )
     }
