@@ -12,6 +12,10 @@ const GlobalStyle = createGlobalStyle`
   .filtro {
     grid-column: 1 / 3;
     grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 50px;
   }
   .carrinho {
     grid-column: 3 ;
@@ -21,7 +25,9 @@ const GlobalStyle = createGlobalStyle`
     grid-column: 1 / 3;
     grid-row: 2;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
     gap: 10px;
   }
 `

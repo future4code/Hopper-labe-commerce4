@@ -8,6 +8,11 @@ const CardFiltro = styled.div`
     justify-content: space-around;
 `
 
+const BotaoRedefinir = styled.button`
+    align-self: center;
+    width: 150px;
+`
+
 export class Filtro extends React.Component{
     state = {
         valorOrdem: '',
@@ -25,6 +30,7 @@ export class Filtro extends React.Component{
 
     onChangeBusca = (event) => {
         this.setState({valorBusca: event.target.value})
+        this.props.buscaSelecionada(this.state.valorBusca)
     }
 
     render(){
@@ -44,10 +50,9 @@ export class Filtro extends React.Component{
                     </select>
                     <div>
                         <input placeholder='BUSCAR' value={this.state.valorBusca} onChange={this.onChangeBusca}/>
-                        <button onClick={() => this.props.buscaSelecionada(this.state.valorBusca)}>Enviar</button>
                     </div>
                 </CardFiltro>
-                <button onClick={this.props.reiniciaFiltros}>Reiniciar Filtros</button>
+                <BotaoRedefinir onClick={this.props.reiniciaFiltros}>Redefinir Filtros</BotaoRedefinir>
             </div>
         )
     }

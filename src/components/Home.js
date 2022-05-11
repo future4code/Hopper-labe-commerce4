@@ -216,14 +216,10 @@ export class Home extends React.Component{
         const listaValorProcurado = [...this.state.listaDeProdutos]
 
         const valorProcurado = listaValorProcurado.filter((item) => {
-            return item.nome.toLowerCase() === busca.toLowerCase()
+            return item.nome.toLowerCase().includes(busca.toLowerCase())
         })
 
-        if(valorProcurado !== null){
-            this.setState({listaDeProdutos: valorProcurado})
-        }else{
-            this.setState({listaDeProdutos: listaInicialDeProdutos})
-        }
+        this.setState({listaDeProdutos: valorProcurado})
     }
 
     //Reinicia Filtros
