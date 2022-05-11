@@ -1,10 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Cards } from './Cards.js'
+import { Produtos } from './Produtos.js'
 import { Carrinho } from './Carrinho.js'
 import { Filtro } from './Filtro.js'
-
-const arrayCarrinho = []
 
 const Container = styled.main`
     display: grid;
@@ -18,37 +16,109 @@ const Container = styled.main`
 
 export class Home extends React.Component{
     state = {
-        listaDeCompras: arrayCarrinho,
-        soma: 0
+        listaDeProdutos: [
+            {
+                imagem:"https://picsum.photos/50/50",
+                nome:"Terra",
+                preco:40,
+                id:1
+            },
+            {
+                imagem:"https://picsum.photos/50/51",
+                nome:"Marte",
+                preco:60,
+                id:2
+            },
+            {
+                imagem:"https://picsum.photos/50/52",
+                nome:"Saturno",
+                preco:80,
+                id:3
+            },
+            {
+                imagem:"https://picsum.photos/50/53",
+                nome:"Júpiter",
+                preco:90,
+                id:4
+            }
+        ],
+        listaDeCompras: [],
+        valorDaCompra: 0
     }
 
-    addItem = (nomeProduto, precoProduto) => {
-        const novoItem = {
-            nome: nomeProduto,
-            preco: precoProduto
+    //Funções do Botão "Adicionar ao Carrinho"
+
+    addItemCarrinho = (itemAdicionado, itemRemovido) => {
+
+        //Adiciona Item ao Carrinho
+        const novoItemCarrinho = {
+            imagem: itemAdicionado.imagem,
+            nome: itemAdicionado.nome,
+            preco: itemAdicionado.preco,
+            id: itemAdicionado.id
         }
 
-        const novaLista = [...this.state.listaDeCompras, novoItem]
+        const novaListaCarrinho = [...this.state.listaDeCompras, novoItemCarrinho]
         
-        this.setState({listaDeCompras: novaLista})
-        this.setState({soma: this.state.soma + precoProduto})
+        this.setState({listaDeCompras: novaListaCarrinho})
+
+        //Soma valor da compra
+        this.setState({valorDaCompra: this.state.valorDaCompra + itemAdicionado.preco})
+
+        //Remove Item da Vitrine
+        const novaListaVitrine = [...this.state.listaDeProdutos].filter((item,index,array) => {
+            if(item.id === itemRemovido.id){
+                return false
+            }else{
+                return true
+            }
+        })
+
+        this.setState({listaDeProdutos: novaListaVitrine})
+    }
+
+    //Funções do Botão "Remover"
+
+    rmItemCarrinho = (itemRemovido, itemAdicionado) => {
+        //Remove item do Carrinho
+        const novaListaCarrinho = [...this.state.listaDeCompras].filter((item,index,array) => {
+            if(item.id === itemRemovido.id){
+                return false
+            }else{
+                return true
+            }
+        })
+
+        this.setState({listaDeCompras: novaListaCarrinho})
+
+        //Subtrai valor da compra
+        this.setState({valorDaCompra: this.state.valorDaCompra - itemRemovido.preco})
+
+        //Adiciona item a Vitrine
+        const novoItemVitrine = {
+            imagem: itemAdicionado.imagem,
+            nome: itemAdicionado.nome,
+            preco: itemAdicionado.preco,
+            id: itemAdicionado.id
+        }
+
+        const novaListaVitrine = [...this.state.listaDeProdutos, novoItemVitrine]
+
+        this.setState({listaDeProdutos: novaListaVitrine})
     }
     
     render(){
-        const componentesCarrinho = this.state.listaDeCompras.map((c,index,array)=>{
-            return(
-                <Carrinho
-                    lista={array}
-                    soma={this.state.soma}
-                />
-            )
-        }) 
         return(
             <Container>
                 <Filtro/>
-                {componentesCarrinho}
-                <Cards
-                    addItem={this.addItem}
+                <Carrinho
+                    listaDeCompras={this.state.listaDeCompras}
+                    valorDaCompra={this.state.valorDaCompra}
+                    rmItemCarrinho={this.rmItemCarrinho}
+                />
+                <Produtos
+                    listaDeProdutos={this.state.listaDeProdutos}
+                    addItemCarrinho={this.addItemCarrinho}
                 />
             </Container>
         )
