@@ -40,6 +40,12 @@ export class Home extends React.Component{
                 nome:"Júpiter",
                 preco:90,
                 id:4
+            },
+            {
+                imagem:"https://picsum.photos/50/54",
+                nome:"A Teste",
+                preco:70,
+                id:5
             }
         ],
         listaDeCompras: [],
@@ -106,11 +112,57 @@ export class Home extends React.Component{
 
         this.setState({listaDeProdutos: novaListaVitrine})
     }
+
+    //Filtros
+    filtroSelecionado = (selecao) => {
+        switch(selecao){
+            case 'minimo':
+                const listaValorMinimo = [...this.state.listaDeProdutos]
+
+                listaValorMinimo.sort(function(a,b){
+                    let primeiroNumero1 = a.preco
+                    let segundoNumero1 = b.preco
+                    return primeiroNumero1 - segundoNumero1
+                })
+                
+                this.setState({listaDeProdutos: listaValorMinimo})
+                console.log("Valor Minimo")
+                break;
+            case 'maximo':
+                const listaValorMaximo = [...this.state.listaDeProdutos]
+
+                listaValorMaximo.sort(function(a,b){
+                    let primeiroNumero2 = a.preco
+                    let segundoNumero2 = b.preco
+                    return segundoNumero2 - primeiroNumero2
+                })
+                
+                this.setState({listaDeProdutos: listaValorMaximo})
+                console.log("Valor Maximo")
+                break;
+            case 'nome':
+                const listaNome = [...this.state.listaDeProdutos]
+
+                listaNome.sort((a,b) => {
+                    let primeiroNome = a.nome.toUpperCase()
+                    let segundoNome = b.nome.toUpperCase()
+                    return (primeiroNome < segundoNome) ? -1 : (primeiroNome > segundoNome) ? 1 : 0
+                })
+                
+                this.setState({listaDeProdutos: listaNome})
+                console.log("Nome")
+                break;
+            default:
+                console.log(`Erro: ${selecao}.`)
+        }
+    }
     
     render(){
         return(
             <Container>
-                <Filtro/>
+                <Filtro
+                    filtroSelecionado={this.filtroSelecionado}
+                />
                 <Carrinho
                     listaDeCompras={this.state.listaDeCompras}
                     valorDaCompra={this.state.valorDaCompra}
