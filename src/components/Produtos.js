@@ -7,15 +7,26 @@ const Card = styled.div`
     flex-wrap: wrap;
     background-color: white;
     color: black;
-    width: 100%;
+    width: 250px;
     height: 150px;
     border-radius: 3px;
-    justify-content: space-between;
+    justify-content: space-around;
 `
 
 const ImgProduto = styled.img`
     height: 100%;
     width: 150px;
+`
+
+const ConteudoProduto = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bolder;
+`
+
+const BotaoProduto = styled.button`
+    width: 90px;
 `
 
 export class Produtos extends React.Component{
@@ -24,9 +35,14 @@ export class Produtos extends React.Component{
             return(
                 <Card>
                     <ImgProduto src={item.imagem}/>
-                    <p>{item.nome}</p>
-                    <p>R${item.preco},00</p>
-                    <button onClick={() => this.props.addItemCarrinho(item,item)}>Adicionar ao Carrinho</button>
+                    <ConteudoProduto>
+                        <p>{item.nome}</p>
+                        <p>R${item.preco},00</p>
+                        <BotaoProduto 
+                            onClick={() => this.props.addItemCarrinho(item,item)}>
+                            Adicionar ao Carrinho
+                        </BotaoProduto>
+                    </ConteudoProduto>
                 </Card>
             )   
         }) 

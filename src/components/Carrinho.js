@@ -6,7 +6,12 @@ const Item = styled.div`
     background-color: white;
     color: black;
     justify-content: space-around;
-    gap: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+`
+
+const BotaoRemover = styled.button`
+    height: 25px;
 `
 
 export class Carrinho extends React.Component{
@@ -16,8 +21,10 @@ export class Carrinho extends React.Component{
                 return(
                     <Item>
                         <p>{item.nome}</p>
-                        <p>{item.preco}</p>
-                        <button onClick={() => {this.props.rmItemCarrinho(item,item)}}>Remover</button>
+                        <BotaoRemover 
+                            onClick={() => {this.props.rmItemCarrinho(item,item)}}>
+                            Remover
+                        </BotaoRemover>
                     </Item>
                 )
             }else{
