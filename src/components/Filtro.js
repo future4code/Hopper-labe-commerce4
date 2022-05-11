@@ -1,24 +1,53 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const CardFiltro = styled.div`
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+`
 
 export class Filtro extends React.Component{
     state = {
-        valor: ''
+        valorOrdem: '',
+        valorFiltro: '',
+        valorBusca: ''
     }
 
-    onChangeOption = (event) => {
-        this.setState({valor: event.target.value})
+    onChangeOrdem = (event) => {
+        this.setState({valorOrdem: event.target.value})
+    }
+
+    onChangeFiltro = (event) => {
+        this.setState({valorFiltro: event.target.value})
+    }
+
+    onChangeBusca = (event) => {
+        this.setState({valorBusca: event.target.value})
     }
 
     render(){
         return(
             <div className='box filtro'>
-                <p>Filtro</p>
-                <select onChange={this.onChangeOption} value={this.state.valor} onClick={() => this.props.filtroSelecionado(this.state.valor)}>
-                    <option>FILTRO</option>
-                    <option value={'minimo'}>Valor Mínimo</option>
-                    <option value={'maximo'}>Valor Máximo</option>
-                    <option value={'nome'}>Nome do Produto</option>
-                </select>
+                <CardFiltro>
+                    <select onChange={this.onChangeOrdem} value={this.state.valorOrdem} onClick={() => this.props.ordemSelecionada(this.state.valorOrdem)}>
+                        <option>ORDEM</option>
+                        <option value={'crescente'}>Ordem Crescente</option>
+                        <option value={'decrescente'}>Ordem Decrescente</option>
+                        <option value={'alfabetica'}>Ordem Alfabética</option>
+                    </select>
+                    <select onChange={this.onChangeFiltro} value={this.state.valorFiltro} onClick={() => this.props.filtroSelecionado(this.state.valorFiltro)}>
+                        <option>FILTRO</option>
+                        <option value={'minimo'}>Valor Mínimo</option>
+                        <option value={'maximo'}>Valor Máximo</option>
+                    </select>
+                    <div>
+                        <input placeholder='BUSCAR' value={this.state.valorBusca} onChange={this.onChangeBusca}/>
+                        <button onClick={() => this.props.buscaSelecionada(this.state.valorBusca)}>Enviar</button>
+                    </div>
+                </CardFiltro>
+                <button onClick={this.props.reiniciaFiltros}>Reiniciar Filtros</button>
             </div>
         )
     }
