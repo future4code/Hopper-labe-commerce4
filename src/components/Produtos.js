@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 const Card = styled.div`
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
     background-color: white;
     color: black;

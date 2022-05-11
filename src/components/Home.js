@@ -14,46 +14,59 @@ const Container = styled.main`
     padding: 10px;
 `
 
+const listaInicialDeProdutos = [
+    {
+        imagem:"https://picsum.photos/50/50",
+        nome:"Terra",
+        preco:40,
+        id:1
+    },
+    {
+        imagem:"https://picsum.photos/50/51",
+        nome:"Marte",
+        preco:60,
+        id:2
+    },
+    {
+        imagem:"https://picsum.photos/50/52",
+        nome:"Saturno",
+        preco:80,
+        id:3
+    },
+    {
+        imagem:"https://picsum.photos/50/53",
+        nome:"Júpiter",
+        preco:90,
+        id:4
+    },
+    {
+        imagem:"https://picsum.photos/50/54",
+        nome:"Plutão",
+        preco:70,
+        id:5
+    },
+    {
+        imagem:"https://picsum.photos/50/55",
+        nome:"Netuno",
+        preco:30,
+        id:6
+    },
+    {
+        imagem:"https://picsum.photos/50/56",
+        nome:"Mercúrio",
+        preco:40,
+        id:7
+    }
+]
+
 export class Home extends React.Component{
     state = {
-        listaDeProdutos: [
-            {
-                imagem:"https://picsum.photos/50/50",
-                nome:"Terra",
-                preco:40,
-                id:1
-            },
-            {
-                imagem:"https://picsum.photos/50/51",
-                nome:"Marte",
-                preco:60,
-                id:2
-            },
-            {
-                imagem:"https://picsum.photos/50/52",
-                nome:"Saturno",
-                preco:80,
-                id:3
-            },
-            {
-                imagem:"https://picsum.photos/50/53",
-                nome:"Júpiter",
-                preco:90,
-                id:4
-            },
-            {
-                imagem:"https://picsum.photos/50/54",
-                nome:"A Teste",
-                preco:70,
-                id:5
-            }
-        ],
+        listaDeProdutos: listaInicialDeProdutos,
         listaDeCompras: [],
         valorDaCompra: 0
     }
 
     //Funções do Botão "Adicionar ao Carrinho"
-
     addItemCarrinho = (itemAdicionado, itemRemovido) => {
 
         //Adiciona Item ao Carrinho
@@ -84,7 +97,6 @@ export class Home extends React.Component{
     }
 
     //Funções do Botão "Remover"
-
     rmItemCarrinho = (itemRemovido, itemAdicionado) => {
         //Remove item do Carrinho
         const novaListaCarrinho = [...this.state.listaDeCompras].filter((item,index,array) => {
@@ -113,34 +125,35 @@ export class Home extends React.Component{
         this.setState({listaDeProdutos: novaListaVitrine})
     }
 
-    //Filtros
-    filtroSelecionado = (selecao) => {
-        switch(selecao){
-            case 'minimo':
-                const listaValorMinimo = [...this.state.listaDeProdutos]
+    //Filtros de Ordenação
+    ordemSelecionada = (ordem) => {
+        this.setState({listaDeProdutos: listaInicialDeProdutos})
+        switch(ordem){
+            case 'crescente':
+                const listaCrescente = [...this.state.listaDeProdutos]
 
-                listaValorMinimo.sort(function(a,b){
+                listaCrescente.sort(function(a,b){
                     let primeiroNumero1 = a.preco
                     let segundoNumero1 = b.preco
                     return primeiroNumero1 - segundoNumero1
                 })
                 
-                this.setState({listaDeProdutos: listaValorMinimo})
-                console.log("Valor Minimo")
+                this.setState({listaDeProdutos: listaCrescente})
+                // console.log("Ordem Crescente")
                 break;
-            case 'maximo':
-                const listaValorMaximo = [...this.state.listaDeProdutos]
+            case 'decrescente':
+                const listaDecrescente = [...this.state.listaDeProdutos]
 
-                listaValorMaximo.sort(function(a,b){
+                listaDecrescente.sort(function(a,b){
                     let primeiroNumero2 = a.preco
                     let segundoNumero2 = b.preco
                     return segundoNumero2 - primeiroNumero2
                 })
                 
-                this.setState({listaDeProdutos: listaValorMaximo})
-                console.log("Valor Maximo")
+                this.setState({listaDeProdutos: listaDecrescente})
+                // console.log("Ordem Decrescente")
                 break;
-            case 'nome':
+            case 'alfabetica':
                 const listaNome = [...this.state.listaDeProdutos]
 
                 listaNome.sort((a,b) => {
@@ -150,18 +163,82 @@ export class Home extends React.Component{
                 })
                 
                 this.setState({listaDeProdutos: listaNome})
-                console.log("Nome")
+                // console.log("Ordem Alfabética")
                 break;
             default:
-                console.log(`Erro: ${selecao}.`)
+                console.log(`Ordem Inicial${ordem}`)
         }
     }
     
+    //Filtros de Valor e Nome
+    filtroSelecionado = (filtro) => {
+        this.setState({listaDeProdutos: listaInicialDeProdutos})
+        switch(filtro){
+            case 'minimo':
+                let listaValorMinimo = [...this.state.listaDeProdutos]
+
+                listaValorMinimo.sort(function(a,b){
+                    let primeiroNumero1 = a.preco
+                    let segundoNumero1 = b.preco
+                    return primeiroNumero1 - segundoNumero1
+                })
+
+                listaValorMinimo = listaValorMinimo.filter((item,index,array) => {
+                    return index === 0
+                })
+                
+                this.setState({listaDeProdutos: listaValorMinimo})
+                // console.log("Valor Minimo")
+                break;
+            case 'maximo':
+                let listaValorMaximo = [...this.state.listaDeProdutos]
+
+                listaValorMaximo.sort(function(a,b){
+                    let primeiroNumero2 = a.preco
+                    let segundoNumero2 = b.preco
+                    return segundoNumero2 - primeiroNumero2
+                })
+
+                listaValorMaximo = listaValorMaximo.filter((item,index,array) => {
+                    return index === 0
+                })
+
+                this.setState({listaDeProdutos: listaValorMaximo})
+                // console.log("Valor Maximo")
+                break;
+            default:
+                console.log(`Filtro Inicial${filtro}`)
+        }
+    }
+
+    // Filtro de Busca
+    buscaSelecionada = (busca) => {
+        const listaValorProcurado = [...this.state.listaDeProdutos]
+
+        const valorProcurado = listaValorProcurado.filter((item) => {
+            return item.nome.toLowerCase() === busca.toLowerCase()
+        })
+
+        if(valorProcurado !== null){
+            this.setState({listaDeProdutos: valorProcurado})
+        }else{
+            this.setState({listaDeProdutos: listaInicialDeProdutos})
+        }
+    }
+
+    //Reinicia Filtros
+    reiniciaFiltros = () => {
+        this.setState({listaDeProdutos: listaInicialDeProdutos})
+    }
+
     render(){
         return(
             <Container>
                 <Filtro
+                    ordemSelecionada={this.ordemSelecionada}
                     filtroSelecionado={this.filtroSelecionado}
+                    buscaSelecionada={this.buscaSelecionada}
+                    reiniciaFiltros={this.reiniciaFiltros}
                 />
                 <Carrinho
                     listaDeCompras={this.state.listaDeCompras}
