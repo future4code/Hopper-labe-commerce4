@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-const Lista = styled.div`
+const Item = styled.div`
     display: flex;
     background-color: white;
     color: black;
@@ -11,20 +11,25 @@ const Lista = styled.div`
 
 export class Carrinho extends React.Component{
     render(){
-        const lista = this.props.lista.map((item)=>{
-            return(
-                <Lista>
-                    <p>{item.nome}</p>
-                    <p>R${item.preco},00</p>
-                </Lista>
-            )
-        })
+        const itensCarrinho = this.props.listaDeCompras.map((item,index,array)=>{
+            if(item !== null || item !== undefined){
+                return(
+                    <Item>
+                        <p>{item.nome}</p>
+                        <p>{item.preco}</p>
+                        <button onClick={() => {this.props.rmItemCarrinho(item,item)}}>Remover</button>
+                    </Item>
+                )
+            }else{
+                return <Item></Item>
+            }
+        }) 
         return (
             <div className='box carrinho'>
-                {lista}
+                {itensCarrinho}
                 <div>
                     <h1>Valor Total:</h1>
-                    <p>R${this.props.soma},00</p>
+                    <p>R${this.props.valorDaCompra},00</p>
                 </div>
             </div>
         )
