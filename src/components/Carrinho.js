@@ -4,10 +4,12 @@ import styled from 'styled-components'
 const Item = styled.div`
     display: flex;
     background-color: white;
-    color: black;
+    color: white;
+    font-weight: bolder;
     justify-content: space-around;
     margin-bottom: 10px;
     align-items: center;
+    background-image: url(https://wallpapercave.com/wp/wp3158324.jpg);
 `
 
 const BotaoRemover = styled.button`
@@ -35,7 +37,7 @@ export class Carrinho extends React.Component{
             <div className='box carrinho'>
                 {itensCarrinho}
                 <div>
-                    <h1>Valor Total:</h1>
+                    <h3>Valor Total:</h3>
                     <p>R${this.props.valorDaCompra},00</p>
                 </div>
             </div>

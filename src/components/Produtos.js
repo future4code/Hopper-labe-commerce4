@@ -6,11 +6,13 @@ const Card = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     background-color: white;
-    color: black;
+    color: white;
     width: 250px;
     height: 150px;
-    border-radius: 3px;
-    justify-content: space-around;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding-right: 5px;
+    background-image: url(https://wallpapercave.com/wp/wp3158324.jpg);
 `
 
 const ImgProduto = styled.img`
