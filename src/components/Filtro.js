@@ -20,6 +20,16 @@ export class Filtro extends React.Component{
         valorBusca: ''
     }
 
+    componentDidUpdate(prevProps,prevState){
+        if(prevState.valorBusca !== this.state.valorBusca){
+            this.props.buscaSelecionada(this.state.valorBusca)
+        }else if(prevState.valorOrdem !== this.state.valorOrdem){
+            this.props.ordemSelecionada(this.state.valorOrdem)
+        }else if(prevState.valorFiltro !== this.state.valorFiltro){
+            this.props.filtroSelecionado(this.state.valorFiltro)
+        }
+    }
+
     onChangeOrdem = (event) => {
         this.setState({valorOrdem: event.target.value})
     }
@@ -30,20 +40,19 @@ export class Filtro extends React.Component{
 
     onChangeBusca = (event) => {
         this.setState({valorBusca: event.target.value})
-        this.props.buscaSelecionada(this.state.valorBusca)
     }
 
     render(){
         return(
             <div className='box filtro'>
                 <CardFiltro>
-                    <select onChange={this.onChangeOrdem} value={this.state.valorOrdem} onClick={() => this.props.ordemSelecionada(this.state.valorOrdem)}>
+                    <select onChange={this.onChangeOrdem} value={this.state.valorOrdem}>
                         <option>ORDEM</option>
                         <option value={'crescente'}>Ordem Crescente</option>
                         <option value={'decrescente'}>Ordem Decrescente</option>
                         <option value={'alfabetica'}>Ordem Alfabética</option>
                     </select>
-                    <select onChange={this.onChangeFiltro} value={this.state.valorFiltro} onClick={() => this.props.filtroSelecionado(this.state.valorFiltro)}>
+                    <select onChange={this.onChangeFiltro} value={this.state.valorFiltro}>
                         <option>FILTRO</option>
                         <option value={'minimo'}>Valor Mínimo</option>
                         <option value={'maximo'}>Valor Máximo</option>

@@ -9,9 +9,9 @@ const Container = styled.main`
     width: calc(100% - 20px);
     grid-gap: 10px;
     grid-template-columns: calc(100%/3) calc(100%/3) calc(100%/3 - 20px);
-    background-color: #ff4;
     color: #444;
     padding: 10px;
+    background-image: url(https://wallpapercave.com/wp/wp3158324.jpg);
 `
 
 const listaInicialDeProdutos = [
@@ -64,6 +64,29 @@ export class Home extends React.Component{
         listaDeProdutos: listaInicialDeProdutos,
         listaDeCompras: [],
         valorDaCompra: 0
+    }
+
+    componentDidMount(){
+        const listaSalvaDeCompras = JSON.parse(localStorage.getItem("Lista de Compras"))
+        this.setState({listaDeCompras:  listaSalvaDeCompras})
+
+        const valorSalvoDaCompra = JSON.parse(localStorage.getItem("Valor da Compra"))
+        this.setState({valorDaCompra:  valorSalvoDaCompra})
+
+        const listaSalvaDeProdutos = JSON.parse(localStorage.getItem("Lista de Produtos"))
+        this.setState({listaDeProdutos:  listaSalvaDeProdutos})
+    }
+
+    componentDidUpdate(prevProps,prevState){
+        if(prevState.listaDeCompras !== this.state.listaDeCompras){
+            localStorage.setItem("Lista de Compras",JSON.stringify(this.state.listaDeCompras))
+        }
+        if(prevState.valorDaCompra !== this.state.valorDaCompra){
+            localStorage.setItem("Valor da Compra",JSON.stringify(this.state.valorDaCompra))
+        }
+        if(prevState.listaDeProdutos !== this.state.listaDeProdutos){
+            localStorage.setItem("Lista de Produtos",JSON.stringify(this.state.listaDeProdutos))
+        }
     }
 
     //Funções do Botão "Adicionar ao Carrinho"

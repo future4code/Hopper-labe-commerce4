@@ -2,11 +2,12 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   .box {
-    background-color: #444;
-    color: #fff;
+    background-color: gainsboro;
+    color: white;
     border-radius: 5px;
     padding: 10px;
     font-size: 100%;
+    border: 1px solid black;
   }
 
   .filtro {
@@ -20,6 +21,7 @@ const GlobalStyle = createGlobalStyle`
   .carrinho {
     grid-column: 3 ;
     grid-row: 1 / 3;
+    color: black;
   }
   .card {
     grid-column: 1 / 3;
@@ -29,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 10px;
+    min-height: 500px;
   }
 `
 
