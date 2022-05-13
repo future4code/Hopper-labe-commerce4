@@ -67,14 +67,20 @@ export class Home extends React.Component{
     }
 
     componentDidMount(){
-        const listaSalvaDeCompras = JSON.parse(localStorage.getItem("Lista de Compras"))
-        this.setState({listaDeCompras:  listaSalvaDeCompras})
+        if(localStorage.getItem("Lista de Compras") !== null){
+            const listaSalvaDeCompras = JSON.parse(localStorage.getItem("Lista de Compras"))
+            this.setState({listaDeCompras:  listaSalvaDeCompras})
+        }
 
-        const valorSalvoDaCompra = JSON.parse(localStorage.getItem("Valor da Compra"))
-        this.setState({valorDaCompra:  valorSalvoDaCompra})
+        if(JSON.parse(localStorage.getItem("Valor da Compra")) !== 0){
+            const valorSalvoDaCompra = JSON.parse(localStorage.getItem("Valor da Compra"))
+            this.setState({valorDaCompra:  valorSalvoDaCompra})
+        }
 
-        const listaSalvaDeProdutos = JSON.parse(localStorage.getItem("Lista de Produtos"))
-        this.setState({listaDeProdutos:  listaSalvaDeProdutos})
+        if(localStorage.getItem("Lista de Produtos") !== null){
+            const listaSalvaDeProdutos = JSON.parse(localStorage.getItem("Lista de Produtos"))
+            this.setState({listaDeProdutos:  listaSalvaDeProdutos})
+        }
     }
 
     componentDidUpdate(prevProps,prevState){
